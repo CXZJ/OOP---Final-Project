@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class PersonalFinanceManagerApp {
-    private User user = new User("John Doe");
+    private final User user = new User("John Doe");
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(PersonalFinanceManagerApp::new);
@@ -56,6 +56,7 @@ public class PersonalFinanceManagerApp {
 
                     Transaction transaction = new Transaction();
 
+                    assert type != null;
                     if (type.equals("Income")) {
                         transaction.addIncome(new Income(amount, description, date));
                     } else if (type.equals("Expense")) {
