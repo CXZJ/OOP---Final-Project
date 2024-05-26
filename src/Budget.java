@@ -1,11 +1,11 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Budget implements Manageable {
     private double budgetAmount;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    public Budget(double budgetAmount, Date startDate, Date endDate) {
+    public Budget(double budgetAmount, LocalDate startDate, LocalDate endDate) {
         this.budgetAmount = budgetAmount;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -35,19 +35,19 @@ public class Budget implements Manageable {
         this.budgetAmount = budgetAmount;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 }

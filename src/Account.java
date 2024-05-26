@@ -1,18 +1,17 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public abstract class Account {
     protected double amount;
     protected String description;
-    protected Date date;
+    protected LocalDate date;
 
-    public Account(double amount, String description, Date date) {
+    public Account(double amount, String description, LocalDate date) {
         this.amount = amount;
         this.description = description;
         this.date = date;
     }
 
-    // Getter and setter methods
-
+    // Getter and Setter methods
     public double getAmount() {
         return amount;
     }
@@ -29,11 +28,11 @@ public abstract class Account {
         this.description = description;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }

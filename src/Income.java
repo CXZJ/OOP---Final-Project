@@ -1,9 +1,9 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Income extends Account {
-    public Income(double amount, String description, Date date) {
+    public Income(double amount, String description, LocalDate date) {
         super(amount, description, date);
     }
 
-    // Additional methods specific to Income
+    // Additional methods specific to Income can be added here
 }

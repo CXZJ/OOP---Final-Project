@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class PersonalFinanceManager {
     public static void main(String[] args) {
@@ -6,8 +6,8 @@ public class PersonalFinanceManager {
 
         // Example of adding transactions
         Transaction transaction = new Transaction();
-        Income income = new Income(1000.0, "Salary", new Date());
-        Expense expense = new Expense(200.0, "Groceries", new Date());
+        Income income = new Income(1000.0, "Salary", LocalDate.now());
+        Expense expense = new Expense(200.0, "Groceries", LocalDate.now());
 
         transaction.addIncome(income);
         transaction.addExpense(expense);
@@ -15,7 +15,7 @@ public class PersonalFinanceManager {
         user.getTransactions().add(transaction);
 
         // Example of adding a budget
-        Budget budget = new Budget(1500.0, new Date(), new Date());
+        Budget budget = new Budget(1500.0, LocalDate.now(), LocalDate.now().plusMonths(1));
         user.getBudgets().add(budget);
 
         // Example of adding a goal
@@ -25,8 +25,8 @@ public class PersonalFinanceManager {
 
         // Output for verification
         System.out.println("User: " + user.getName());
-        System.out.println("Transactions: " + user.getTransactions());
-        System.out.println("Budgets: " + user.getBudgets());
-        System.out.println("Goals: " + user.getGoals());
+        System.out.println("Transactions: " + user.getTransactions().size());
+        System.out.println("Budgets: " + user.getBudgets().size());
+        System.out.println("Goals: " + user.getGoals().size());
     }
 }
