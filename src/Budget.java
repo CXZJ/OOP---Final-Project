@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class Budget {
+public class Budget implements Manageable {
     private double amount;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -14,5 +14,10 @@ public class Budget {
     @Override
     public String toString() {
         return String.format("Budget: $%.2f from %s to %s", amount, startDate, endDate);
+    }
+
+    @Override
+    public String getDetails() {
+        return toString();
     }
 }

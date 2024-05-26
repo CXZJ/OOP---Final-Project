@@ -1,4 +1,4 @@
-public class Goal {
+public class Goal implements Manageable {
     private String name;
     private double amount;
 
@@ -10,5 +10,10 @@ public class Goal {
     @Override
     public String toString() {
         return String.format("Goal: %s - $%.2f", name, amount);
+    }
+
+    @Override
+    public String getDetails() {
+        return toString();
     }
 }

@@ -179,7 +179,9 @@ public class PersonalFinanceManagerApp {
         model.clear();
         for (Transaction transaction : user.getTransactions()) {
             for (Account account : transaction.getAccounts()) {
-                model.addElement(account.toString());
+                if (account instanceof Manageable) {
+                    model.addElement(((Manageable) account).getDetails());
+                }
             }
         }
     }
@@ -187,14 +189,15 @@ public class PersonalFinanceManagerApp {
     private void refreshBudgetList(DefaultListModel<String> model) {
         model.clear();
         for (Budget budget : user.getBudgets()) {
-            model.addElement(budget.toString());
+            model.addElement(budget.getDetails());
         }
     }
 
     private void refreshGoalList(DefaultListModel<String> model) {
         model.clear();
         for (Goal goal : user.getGoals()) {
-            model.addElement(goal.toString());
+            model.addElement(goal.getDetails());
         }
     }
 }
+
