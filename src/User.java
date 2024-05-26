@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     private String name;
-    private ArrayList<Transaction> transactions;
-    private ArrayList<Budget> budgets;
-    private ArrayList<Goal> goals;
+    private List<Transaction> transactions;
+    private List<Budget> budgets;
+    private List<Goal> goals;
 
     public User(String name) {
         this.name = name;
@@ -13,36 +14,19 @@ public class User {
         this.goals = new ArrayList<>();
     }
 
-    // Getter and Setter methods
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ArrayList<Transaction> getTransactions() {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 
-    public ArrayList<Budget> getBudgets() {
+    public List<Budget> getBudgets() {
         return budgets;
     }
 
-    public ArrayList<Goal> getGoals() {
+    public List<Goal> getGoals() {
         return goals;
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", transactions=" + transactions +
-                ", budgets=" + budgets +
-                ", goals=" + goals +
-                '}';
-    }
-
-    // Additional methods for managing transactions, budgets, and goals
 }

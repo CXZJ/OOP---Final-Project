@@ -35,4 +35,9 @@ public abstract class Account {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s: %s - $%.2f on %s", getClass().getSimpleName(), description, amount, date);
+    }
 }

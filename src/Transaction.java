@@ -1,37 +1,35 @@
 import java.util.ArrayList;
+import java.util.List;
 
-public class Transaction implements Manageable {
-    private ArrayList<Account> accounts;
+public class Transaction {
+    private List<Income> incomes;
+    private List<Expense> expenses;
 
     public Transaction() {
-        this.accounts = new ArrayList<>();
+        this.incomes = new ArrayList<>();
+        this.expenses = new ArrayList<>();
     }
 
-    @Override
-    public void add() {
-        // Implementation for adding a transaction
-    }
-
-    @Override
-    public void edit() {
-        // Implementation for editing a transaction
-    }
-
-    @Override
-    public void delete() {
-        // Implementation for deleting a transaction
-    }
-
-    // Methods to manage income and expense transactions
     public void addIncome(Income income) {
-        accounts.add(income);
+        incomes.add(income);
     }
 
     public void addExpense(Expense expense) {
-        accounts.add(expense);
+        expenses.add(expense);
     }
 
-    public ArrayList<Account> getAccounts() {
+    public List<Income> getIncomes() {
+        return incomes;
+    }
+
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public List<Account> getAccounts() {
+        List<Account> accounts = new ArrayList<>();
+        accounts.addAll(incomes);
+        accounts.addAll(expenses);
         return accounts;
     }
 }
