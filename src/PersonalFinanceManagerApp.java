@@ -15,7 +15,7 @@ public class PersonalFinanceManagerApp {
     public PersonalFinanceManagerApp() {
         JFrame frame = new JFrame("Personal Finance Manager");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1200, 800);
+        frame.setSize(800, 600);
         frame.setLayout(new BorderLayout());
 
         // Create panels for different sections
@@ -35,6 +35,7 @@ public class PersonalFinanceManagerApp {
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createTitledBorder("Transactions"));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding around the panel
 
         JTextField amountField = new JTextField(10);
         JTextField descriptionField = new JTextField(10);
@@ -69,15 +70,21 @@ public class PersonalFinanceManagerApp {
             }
         });
 
+        // Add components to the panel with padding
         panel.add(new JLabel("Amount:"));
         panel.add(amountField);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(new JLabel("Description:"));
         panel.add(descriptionField);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(new JLabel("Date (YYYY-MM-DD):"));
         panel.add(dateField);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(new JLabel("Type:"));
         panel.add(typeComboBox);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(addButton);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(new JScrollPane(transactionList));
 
         return panel;
@@ -87,6 +94,7 @@ public class PersonalFinanceManagerApp {
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createTitledBorder("Budgets"));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding around the panel
 
         JTextField amountField = new JTextField(10);
         JTextField startDateField = new JTextField(10);
@@ -110,13 +118,18 @@ public class PersonalFinanceManagerApp {
             }
         });
 
+        // Add components to the panel with padding
         panel.add(new JLabel("Amount:"));
         panel.add(amountField);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(new JLabel("Start Date (YYYY-MM-DD):"));
         panel.add(startDateField);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(new JLabel("End Date (YYYY-MM-DD):"));
         panel.add(endDateField);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(addButton);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(new JScrollPane(budgetList));
 
         return panel;
@@ -126,6 +139,7 @@ public class PersonalFinanceManagerApp {
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createTitledBorder("Goals"));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding around the panel
 
         JTextField nameField = new JTextField(10);
         JTextField amountField = new JTextField(10);
@@ -147,11 +161,15 @@ public class PersonalFinanceManagerApp {
             }
         });
 
+        // Add components to the panel with padding
         panel.add(new JLabel("Goal Name:"));
         panel.add(nameField);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(new JLabel("Amount:"));
         panel.add(amountField);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(addButton);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(new JScrollPane(goalList));
 
         return panel;
@@ -179,5 +197,4 @@ public class PersonalFinanceManagerApp {
             model.addElement(goal.toString());
         }
     }
-
 }
