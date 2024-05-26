@@ -7,8 +7,6 @@ public class Income extends Account {
 
     @Override
     public String toString() {
-        return String.format("%s: %s - $%.2f on %s", getClass().getSimpleName(), description, amount, date);
+        return String.format("Income: %s - $%.2f on %s", description, amount, date);
     }
-
-    // Additional methods specific to Income can be added here
 }

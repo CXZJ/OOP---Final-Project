@@ -15,7 +15,7 @@ public class PersonalFinanceManagerApp {
     public PersonalFinanceManagerApp() {
         JFrame frame = new JFrame("Personal Finance Manager");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
+        frame.setSize(1200, 800);
         frame.setLayout(new BorderLayout());
 
         // Create panels for different sections
@@ -179,6 +179,5 @@ public class PersonalFinanceManagerApp {
             model.addElement(goal.toString());
         }
     }
-
 
 }

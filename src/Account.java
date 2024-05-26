@@ -11,33 +11,6 @@ public abstract class Account {
         this.date = date;
     }
 
-    // Getter and Setter methods
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     @Override
-    public String toString() {
-        return String.format("%s: %s - $%.2f on %s", getClass().getSimpleName(), description, amount, date);
-    }
+    public abstract String toString();
 }
