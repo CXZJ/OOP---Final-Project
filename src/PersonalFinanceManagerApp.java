@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,7 +7,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class PersonalFinanceManagerApp {
-    private final User user = new User("John Doe");
+    private User user = new User("John Doe");
+    private JLabel totalBalanceLabel;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(PersonalFinanceManagerApp::new);
@@ -15,18 +17,27 @@ public class PersonalFinanceManagerApp {
     public PersonalFinanceManagerApp() {
         JFrame frame = new JFrame("Personal Finance Manager");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-        frame.setLayout(new BorderLayout());
+        frame.setSize(1000, 700);
+        frame.setLayout(new BorderLayout(10, 10));
 
         // Create panels for different sections
-        JPanel transactionPanel = createTransactionPanel();
         JPanel budgetPanel = createBudgetPanel();
+        JPanel transactionPanel = createTransactionPanel();
         JPanel goalPanel = createGoalPanel();
 
         // Add panels to the frame
-        frame.add(transactionPanel, BorderLayout.WEST);
-        frame.add(budgetPanel, BorderLayout.CENTER);
+        frame.add(budgetPanel, BorderLayout.WEST);
+        frame.add(transactionPanel, BorderLayout.CENTER);
         frame.add(goalPanel, BorderLayout.EAST);
+
+        // Create total balance display
+        totalBalanceLabel = new JLabel("Total Balance: $0.00");
+        totalBalanceLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        totalBalanceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JPanel balancePanel = new JPanel(new BorderLayout());
+        balancePanel.add(totalBalanceLabel, BorderLayout.CENTER);
+        balancePanel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Padding around the label
+        frame.add(balancePanel, BorderLayout.NORTH);
 
         frame.setVisible(true);
     }
@@ -35,7 +46,11 @@ public class PersonalFinanceManagerApp {
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createTitledBorder("Transactions"));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding around the panel
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Padding around the panel
+
+        JLabel titleLabel = new JLabel("Transactions");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JTextField amountField = new JTextField(10);
         JTextField descriptionField = new JTextField(10);
@@ -56,15 +71,18 @@ public class PersonalFinanceManagerApp {
 
                     Transaction transaction = new Transaction();
 
-                    assert type != null;
                     if (type.equals("Income")) {
-                        transaction.addIncome(new Income(amount, description, date));
+                        Income income = new Income(amount, description, date);
+                        transaction.addIncome(income);
+                        user.getTransactions().add(transaction);
                     } else if (type.equals("Expense")) {
-                        transaction.addExpense(new Expense(amount, description, date));
+                        Expense expense = new Expense(amount, description, date);
+                        transaction.addExpense(expense);
+                        user.getTransactions().add(transaction);
                     }
 
-                    user.getTransactions().add(transaction);
                     refreshTransactionList((DefaultListModel<String>) transactionList.getModel());
+                    updateTotalBalance();
                 } catch (NumberFormatException | DateTimeParseException ex) {
                     JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount and date fields.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -72,6 +90,8 @@ public class PersonalFinanceManagerApp {
         });
 
         // Add components to the panel with padding
+        panel.add(titleLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(new JLabel("Amount:"));
         panel.add(amountField);
         panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
@@ -95,7 +115,11 @@ public class PersonalFinanceManagerApp {
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createTitledBorder("Budgets"));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding around the panel
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Padding around the panel
+
+        JLabel titleLabel = new JLabel("Budgeting");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JTextField amountField = new JTextField(10);
         JTextField startDateField = new JTextField(10);
@@ -120,6 +144,8 @@ public class PersonalFinanceManagerApp {
         });
 
         // Add components to the panel with padding
+        panel.add(titleLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(new JLabel("Amount:"));
         panel.add(amountField);
         panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
@@ -140,7 +166,11 @@ public class PersonalFinanceManagerApp {
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createTitledBorder("Goals"));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding around the panel
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Padding around the panel
+
+        JLabel titleLabel = new JLabel("Goals");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JTextField nameField = new JTextField(10);
         JTextField amountField = new JTextField(10);
@@ -163,6 +193,8 @@ public class PersonalFinanceManagerApp {
         });
 
         // Add components to the panel with padding
+        panel.add(titleLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
         panel.add(new JLabel("Goal Name:"));
         panel.add(nameField);
         panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical padding
@@ -200,5 +232,21 @@ public class PersonalFinanceManagerApp {
             model.addElement(goal.getDetails());
         }
     }
-}
 
+    private void updateTotalBalance() {
+        double totalIncome = 0;
+        double totalExpenses = 0;
+
+        for (Transaction transaction : user.getTransactions()) {
+            for (Income income : transaction.getIncomes()) {
+                totalIncome += income.amount;
+            }
+            for (Expense expense : transaction.getExpenses()) {
+                totalExpenses += expense.amount;
+            }
+        }
+
+        double totalBalance = totalIncome - totalExpenses;
+        totalBalanceLabel.setText(String.format("Total Balance: $%.2f", totalBalance));
+    }
+}

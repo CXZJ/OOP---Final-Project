@@ -18,6 +18,14 @@ public class Transaction {
         expenses.add(expense);
     }
 
+    public List<Income> getIncomes() {
+        return incomes;
+    }
+
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
     public List<Account> getAccounts() {
         List<Account> accounts = new ArrayList<>();
         accounts.addAll(incomes);
