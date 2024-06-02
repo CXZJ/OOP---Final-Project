@@ -142,17 +142,14 @@ public class PersonalFinanceManagerApp {
         JButton addButton = new JButton("Add Goal");
         JList<String> goalList = new JList<>(new DefaultListModel<>());
 
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String name = nameField.getText();
-                    double amount = Double.parseDouble(amountField.getText());
-                    user.getGoals().add(new Goal(name, amount));
-                    refreshGoalList((DefaultListModel<String>) goalList.getModel());
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount field.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+        addButton.addActionListener(e -> {
+            try {
+                String name = nameField.getText();
+                double amount = Double.parseDouble(amountField.getText());
+                user.getGoals().add(new Goal(name, amount));
+                refreshGoalList((DefaultListModel<String>) goalList.getModel());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount field.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
