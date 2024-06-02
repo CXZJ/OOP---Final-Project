@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private final List<Transaction> transactions;
-    private final List<Budget> budgets;
-    private final List<Goal> goals;
+    private List<Transaction> transactions;
+    private List<Budget> budgets;
+    private List<Goal> goals;
 
     public User() {
         this.transactions = new ArrayList<>();
