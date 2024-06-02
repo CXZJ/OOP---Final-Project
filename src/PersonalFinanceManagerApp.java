@@ -1,13 +1,11 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class PersonalFinanceManagerApp {
-    private User user = new User("John Doe");
+    private User user = new User();
     private JLabel totalBalanceLabel;
 
     public static void main(String[] args) {
@@ -60,32 +58,30 @@ public class PersonalFinanceManagerApp {
         JButton addButton = new JButton("Add Transaction");
         JList<String> transactionList = new JList<>(new DefaultListModel<>());
 
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    double amount = Double.parseDouble(amountField.getText());
-                    String description = descriptionField.getText();
-                    LocalDate date = LocalDate.parse(dateField.getText());
-                    String type = (String) typeComboBox.getSelectedItem();
+        addButton.addActionListener(e -> {
+            try {
+                double amount = Double.parseDouble(amountField.getText());
+                String description = descriptionField.getText();
+                LocalDate date = LocalDate.parse(dateField.getText());
+                String type = (String) typeComboBox.getSelectedItem();
 
-                    Transaction transaction = new Transaction();
+                Transaction transaction = new Transaction();
 
-                    if (type.equals("Income")) {
-                        Income income = new Income(amount, description, date);
-                        transaction.addIncome(income);
-                        user.getTransactions().add(transaction);
-                    } else if (type.equals("Expense")) {
-                        Expense expense = new Expense(amount, description, date);
-                        transaction.addExpense(expense);
-                        user.getTransactions().add(transaction);
-                    }
-
-                    refreshTransactionList((DefaultListModel<String>) transactionList.getModel());
-                    updateTotalBalance();
-                } catch (NumberFormatException | DateTimeParseException ex) {
-                    JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount and date fields.", "Error", JOptionPane.ERROR_MESSAGE);
+                assert type != null;
+                if (type.equals("Income")) {
+                    Income income = new Income(amount, description, date);
+                    transaction.addIncome(income);
+                    user.getTransactions().add(transaction);
+                } else if (type.equals("Expense")) {
+                    Expense expense = new Expense(amount, description, date);
+                    transaction.addExpense(expense);
+                    user.getTransactions().add(transaction);
                 }
+
+                refreshTransactionList((DefaultListModel<String>) transactionList.getModel());
+                updateTotalBalance();
+            } catch (NumberFormatException | DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount and date fields.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -128,18 +124,15 @@ public class PersonalFinanceManagerApp {
         JButton addButton = new JButton("Add Budget");
         JList<String> budgetList = new JList<>(new DefaultListModel<>());
 
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    double amount = Double.parseDouble(amountField.getText());
-                    LocalDate startDate = LocalDate.parse(startDateField.getText());
-                    LocalDate endDate = LocalDate.parse(endDateField.getText());
-                    user.getBudgets().add(new Budget(amount, startDate, endDate));
-                    refreshBudgetList((DefaultListModel<String>) budgetList.getModel());
-                } catch (NumberFormatException | DateTimeParseException ex) {
-                    JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount and date fields.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+        addButton.addActionListener(e -> {
+            try {
+                double amount = Double.parseDouble(amountField.getText());
+                LocalDate startDate = LocalDate.parse(startDateField.getText());
+                LocalDate endDate = LocalDate.parse(endDateField.getText());
+                user.getBudgets().add(new Budget(amount, startDate, endDate));
+                refreshBudgetList((DefaultListModel<String>) budgetList.getModel());
+            } catch (NumberFormatException | DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount and date fields.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -178,17 +171,14 @@ public class PersonalFinanceManagerApp {
         JButton addButton = new JButton("Add Goal");
         JList<String> goalList = new JList<>(new DefaultListModel<>());
 
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String name = nameField.getText();
-                    double amount = Double.parseDouble(amountField.getText());
-                    user.getGoals().add(new Goal(name, amount));
-                    refreshGoalList((DefaultListModel<String>) goalList.getModel());
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount field.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+        addButton.addActionListener(e -> {
+            try {
+                String name = nameField.getText();
+                double amount = Double.parseDouble(amountField.getText());
+                user.getGoals().add(new Goal(name, amount));
+                refreshGoalList((DefaultListModel<String>) goalList.getModel());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount field.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
