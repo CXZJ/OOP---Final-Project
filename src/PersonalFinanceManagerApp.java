@@ -101,18 +101,15 @@ public class PersonalFinanceManagerApp {
         JButton addButton = new JButton("Add Budget");
         JList<String> budgetList = new JList<>(new DefaultListModel<>());
 
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    double amount = Double.parseDouble(amountField.getText());
-                    LocalDate startDate = LocalDate.parse(startDateField.getText());
-                    LocalDate endDate = LocalDate.parse(endDateField.getText());
-                    user.getBudgets().add(new Budget(amount, startDate, endDate));
-                    refreshBudgetList((DefaultListModel<String>) budgetList.getModel());
-                } catch (NumberFormatException | DateTimeParseException ex) {
-                    JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount and date fields.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+        addButton.addActionListener(e -> {
+            try {
+                double amount = Double.parseDouble(amountField.getText());
+                LocalDate startDate = LocalDate.parse(startDateField.getText());
+                LocalDate endDate = LocalDate.parse(endDateField.getText());
+                user.getBudgets().add(new Budget(amount, startDate, endDate));
+                refreshBudgetList((DefaultListModel<String>) budgetList.getModel());
+            } catch (NumberFormatException | DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount and date fields.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
