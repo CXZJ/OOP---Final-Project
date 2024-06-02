@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 
 public class PersonalFinanceManagerApp {
     private User user = new User();
-    private JLabel totalBalanceLabel;
+    private JLabel label;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(PersonalFinanceManagerApp::new);
@@ -22,22 +22,26 @@ public class PersonalFinanceManagerApp {
         JPanel budgetPanel = createBudgetPanel();
         JPanel transactionPanel = createTransactionPanel();
         JPanel goalPanel = createGoalPanel();
+        JPanel balanceDisplay = createBalanceLabel();
 
         // Add panels to the frame
+        frame.add(balanceDisplay, BorderLayout.NORTH);
         frame.add(budgetPanel, BorderLayout.WEST);
         frame.add(transactionPanel, BorderLayout.CENTER);
         frame.add(goalPanel, BorderLayout.EAST);
 
-        // Create total balance display
-        totalBalanceLabel = new JLabel("Total Balance: $0.00");
-        totalBalanceLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        totalBalanceLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        JPanel balancePanel = new JPanel(new BorderLayout());
-        balancePanel.add(totalBalanceLabel, BorderLayout.CENTER);
-        balancePanel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Padding around the label
-        frame.add(balancePanel, BorderLayout.NORTH);
-
         frame.setVisible(true);
+    }
+
+    private JPanel createBalanceLabel() {
+        label = new JLabel("Total Balance: $0.00");
+        label.setFont(new Font("Arial", Font.BOLD, 16));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(label, BorderLayout.CENTER);
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Padding around the label
+
+        return panel;
     }
 
     private JPanel createTransactionPanel() {
@@ -237,6 +241,6 @@ public class PersonalFinanceManagerApp {
         }
 
         double totalBalance = totalIncome - totalExpenses;
-        totalBalanceLabel.setText(String.format("Total Balance: $%.2f", totalBalance));
+        label.setText(String.format("Total Balance: $%.2f", totalBalance));
     }
 }
