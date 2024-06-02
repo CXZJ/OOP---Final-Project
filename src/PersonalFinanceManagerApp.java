@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class PersonalFinanceManagerApp {
-    private final User user = new User("John Doe");
+    private final User user = new User();
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(PersonalFinanceManagerApp::new);
@@ -45,29 +45,26 @@ public class PersonalFinanceManagerApp {
         JButton addButton = new JButton("Add Transaction");
         JList<String> transactionList = new JList<>(new DefaultListModel<>());
 
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    double amount = Double.parseDouble(amountField.getText());
-                    String description = descriptionField.getText();
-                    LocalDate date = LocalDate.parse(dateField.getText());
-                    String type = (String) typeComboBox.getSelectedItem();
+        addButton.addActionListener(e -> {
+            try {
+                double amount = Double.parseDouble(amountField.getText());
+                String description = descriptionField.getText();
+                LocalDate date = LocalDate.parse(dateField.getText());
+                String type = (String) typeComboBox.getSelectedItem();
 
-                    Transaction transaction = new Transaction();
+                Transaction transaction = new Transaction();
 
-                    assert type != null;
-                    if (type.equals("Income")) {
-                        transaction.addIncome(new Income(amount, description, date));
-                    } else if (type.equals("Expense")) {
-                        transaction.addExpense(new Expense(amount, description, date));
-                    }
-
-                    user.getTransactions().add(transaction);
-                    refreshTransactionList((DefaultListModel<String>) transactionList.getModel());
-                } catch (NumberFormatException | DateTimeParseException ex) {
-                    JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount and date fields.", "Error", JOptionPane.ERROR_MESSAGE);
+                assert type != null;
+                if (type.equals("Income")) {
+                    transaction.addIncome(new Income(amount, description, date));
+                } else if (type.equals("Expense")) {
+                    transaction.addExpense(new Expense(amount, description, date));
                 }
+
+                user.getTransactions().add(transaction);
+                refreshTransactionList((DefaultListModel<String>) transactionList.getModel());
+            } catch (NumberFormatException | DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(panel, "Invalid input. Please check the amount and date fields.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 

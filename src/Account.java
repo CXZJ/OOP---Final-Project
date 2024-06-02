@@ -10,7 +10,4 @@ public abstract class Account {
         this.description = description;
         this.date = date;
     }
-
-    @Override
-    public abstract String toString();
 }
